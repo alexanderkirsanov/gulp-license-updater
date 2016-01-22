@@ -1,0 +1,15 @@
+.gitignore{
+  "name": "gulp-license-updater",
+  "version": "0.0.1",
+  "description": "Gulp license updater. It was inspired by maven license plugin.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "keywords": [
+    "gulpplugin",
+    "license"
+  ],
+  "author": "lqip32@gmail.com",
+  "license": "ISC"
+}
