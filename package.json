@@ -1,4 +1,4 @@
-.gitignore{
+{
   "name": "gulp-license-updater",
   "version": "0.0.1",
   "description": "Gulp license updater. It was inspired by maven license plugin.",
