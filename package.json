@@ -11,5 +11,10 @@
     "license"
   ],
   "author": "lqip32@gmail.com",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gulp-util": "^3.0.7",
+    "object-assign": "^4.0.1",
+    "through2": "^2.0.0"
+  }
 }
