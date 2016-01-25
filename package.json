@@ -16,5 +16,9 @@
     "gulp-util": "^3.0.7",
     "object-assign": "^4.0.1",
     "through2": "^2.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
   }
 }
