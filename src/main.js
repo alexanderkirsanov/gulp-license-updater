@@ -1,3 +1,4 @@
+var path = require('path');
 module.exports = {
     getFileName: function (file) {
         var filename;

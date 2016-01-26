@@ -13,7 +13,7 @@ module.exports = function (config, license, rate) {
         }, config));
 
         if (config.check) {
-            if (!licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/))){
+            if (!licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/))) {
                 this.emit.bind(this, filename);
             }
         }
