@@ -29,16 +29,16 @@ describe('gulp-license-updater', function () {
             expect(file.path).to.exist;
             expect(file.relative).to.exist;
             expect(file.contents).to.exist;
-            expect(file.contents.toString('utf8')).to.be(tstString);
-            expect(file.path).to.be('./fixture/file.js');
-            expect(file.relative).to.be('file.js');
+            expect(file.contents.toString('utf8')).to.equal(tstString);
+            expect(file.path).to.equal('./fixture/file.js');
+            expect(file.relative).to.equal('file.js');
             ++n;
         });
-        //luStream.on('check', function(name){
-        //    console.log(name);
-        //});
+        luStream.on('check', function(name){
+            console.log(name);
+        });
         luStream.once('end', function () {
-            expect(n).to.be(1);
+            expect(n).to.equal(1);
             done();
         });
 

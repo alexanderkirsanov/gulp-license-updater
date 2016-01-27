@@ -24,7 +24,6 @@ module.exports = function (config, license, rate) {
 
 
         }
-        this.push(file);
-        callback();
+        callback(null, file);
     });
 };
