@@ -11,9 +11,9 @@ module.exports = function (config, license, rate) {
         var template = gutil.template(license, extend({
             file: file, filename: filename
         }, config));
-
+        config = config || {};
         if (config.check) {
-            if (!licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/))) {
+            if (licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/)) >= rate) {
                 this.emit.bind(this, filename);
             }
         }
@@ -24,5 +24,7 @@ module.exports = function (config, license, rate) {
 
 
         }
+        this.push(file);
+        callback();
     });
 };

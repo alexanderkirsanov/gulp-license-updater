@@ -21,7 +21,7 @@ describe('gulp-license-updater', function () {
 
     it('should be processed by license updater', function (done) {
         var n = 0;
-        var luStream = lu();
+        var luStream = lu({check:true}, 'test string', 0.8);
         var tstString = 'test string';
         var tmpFile = getTmpFile(tstString);
         luStream.on('data', function (file) {
@@ -34,7 +34,9 @@ describe('gulp-license-updater', function () {
             expect(file.relative).to.be('file.js');
             ++n;
         });
-
+        //luStream.on('check', function(name){
+        //    console.log(name);
+        //});
         luStream.once('end', function () {
             expect(n).to.be(1);
             done();
