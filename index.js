@@ -5,7 +5,7 @@ var licenseUpdater = require('./src/main');
 
 module.exports = function (config, license, rate) {
     rate = rate || 0.8;
-
+    var filePaths = [];
     return through.obj(function (file, encoding, callback) {
         var filename = licenseUpdater.getFileName(file);
         var template = gutil.template(license, extend({
@@ -14,14 +14,14 @@ module.exports = function (config, license, rate) {
         config = config || {};
         if (config.check) {
             if (licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/)) >= rate) {
-                this.emit.bind(this, filename);
+                var path = file.path.replace(process.cwd(), '');
+                path = path.replace(new RegExp('^[/\\\\]'), '');
+                filePaths.push(path.replace(/\\/g, '/'));
+                this.push(file);
             }
-        }
-        if (config.format) {
+        } else if (config.format) {
 
-        }
-        if (config.remove) {
-
+        } else if (config.remove) {
 
         }
         callback(null, file);

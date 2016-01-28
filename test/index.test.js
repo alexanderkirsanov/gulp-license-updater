@@ -2,6 +2,13 @@ var eventStream = require('event-stream');
 var expect = require('chai').expect;
 var File = require('vinyl');
 var lu = require('../index');
+var path = require('path');
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var assert = require('stream-assert');
+var fixtures = function (glob) {
+    return path.join(__dirname, 'fixture', glob);
+};
 describe('gulp-license-updater', function () {
     function getTmpFile(content) {
         return new File({
@@ -21,7 +28,7 @@ describe('gulp-license-updater', function () {
 
     it('should be processed by license updater', function (done) {
         var n = 0;
-        var luStream = lu({check:true}, 'test string', 0.8);
+        var luStream = lu({check: true}, 'test string', 0.8);
         var tstString = 'test string';
         var tmpFile = getTmpFile(tstString);
         luStream.on('data', function (file) {
@@ -34,9 +41,6 @@ describe('gulp-license-updater', function () {
             expect(file.relative).to.equal('file.js');
             ++n;
         });
-        luStream.on('check', function(name){
-            console.log(name);
-        });
         luStream.once('end', function () {
             expect(n).to.equal(1);
             done();
@@ -44,5 +48,14 @@ describe('gulp-license-updater', function () {
 
         luStream.write(tmpFile);
         luStream.end();
+    });
+    it('should works well with pipe', function (done) {
+        gulp.src(fixtures('*'))
+            .pipe(lu({check: true}, 'var a = \'Hello\'; \nconsole.log(a);', 0.8))
+            .pipe(assert.end(done));
+        //.pipe(
+        //    //lu({check: true}, 'test string', 0.8)
+        //).pipe(gutil.log);
+
     });
 });
