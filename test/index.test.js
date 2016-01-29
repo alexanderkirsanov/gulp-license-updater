@@ -6,6 +6,7 @@ var path = require('path');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var assert = require('stream-assert');
+var is = require('funsert');
 var fixtures = function (glob) {
     return path.join(__dirname, 'fixture', glob);
 };
@@ -52,10 +53,9 @@ describe('gulp-license-updater', function () {
     it('should works well with pipe', function (done) {
         gulp.src(fixtures('*'))
             .pipe(lu({check: true}, 'var a = \'Hello\'; \nconsole.log(a);', 0.8))
-            .pipe(assert.end(done));
-        //.pipe(
-        //    //lu({check: true}, 'test string', 0.8)
-        //).pipe(gutil.log);
+            .pipe(
+            assert.second(is.equal('test/fixture/first.js'))
+        ).pipe(assert.end(done));
 
     });
 });

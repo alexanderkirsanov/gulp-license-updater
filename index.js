@@ -17,13 +17,12 @@ module.exports = function (config, license, rate) {
                 var path = file.path.replace(process.cwd(), '');
                 path = path.replace(new RegExp('^[/\\\\]'), '');
                 filePaths.push(path.replace(/\\/g, '/'));
-                this.push(file);
             }
         } else if (config.format) {
 
         } else if (config.remove) {
 
         }
-        callback(null, file);
+        callback(null, file, filePaths);
     });
 };
