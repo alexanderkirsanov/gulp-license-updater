@@ -56,8 +56,7 @@ describe('gulp-license-updater', function () {
             .pipe(
                 assert.first(function (item) {
                     return item.relative === 'first';
-                })
-            )
+                }))
             .pipe(assert.second(function (item) {
                 return item.relative === 'second';
             }))
