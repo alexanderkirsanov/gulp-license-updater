@@ -54,8 +54,14 @@ describe('gulp-license-updater', function () {
         gulp.src(fixtures('*'))
             .pipe(lu({check: true}, 'var a = \'Hello\'; \nconsole.log(a);', 0.8))
             .pipe(
-            assert.second(is.equal('test/fixture/first.js'))
-        ).pipe(assert.end(done));
+                assert.first(function (item) {
+                    return item.relative === 'first';
+                })
+            )
+            .pipe(assert.second(function (item) {
+                return item.relative === 'second';
+            }))
+            .pipe(assert.end(done));
 
     });
 });
