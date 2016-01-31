@@ -46,5 +46,21 @@ module.exports = {
             return 0;
         }
         return matchRates / minLines;
+    },
+    format: function (sources, license, matchCounter, rate) {
+        if (matchCounter >= rate && matchCounter !== 1) {
+            if (sources[license.length - 1].replace(/\s/, '') === '') {
+                sources.splice(0, license.length);
+            } else {
+                sources.splice(0, license.length - 1);
+            }
+        } else if (matchCounter !== 1) {
+            if (sources[license.length - 1].replace(/\s/, '') === '') {
+                sources.splice(0, license.length);
+            } else {
+                sources.splice(0, license.length - 1);
+            }
+        }
+        return sources;
     }
 };

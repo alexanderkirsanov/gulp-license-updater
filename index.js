@@ -20,15 +20,10 @@ module.exports = function (config, license, rate) {
             }
         } else if (config.format) {
             var templateArr = template.split(/\r?\n/);
-                var source = file.contents.toString('utf-8').split(/\r?\n/);
-            if (licenseUpdater.check(source, templateArr) >= rate) {
-                if (source[templateArr.length - 1].replace(/\s/, '') === '') {
-                    source.splice(0, templateArr.length);
-                } else {
-                    source.splice(0, templateArr.length - 1);
-                }
-                file.contents = new Buffer(source.join('\r\n'));
-            }
+            var source = file.contents.toString('utf-8').split(/\r?\n/);
+            var matchCounter = licenseUpdater.check(source, templateArr);
+            var result = licenseUpdater.format(source, templateArr, matchCounter, rate);
+            file.contents = new Buffer(result.join('\r\n'));
         } else if (config.remove) {
 
         }
