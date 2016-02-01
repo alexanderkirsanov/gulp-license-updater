@@ -49,18 +49,20 @@ module.exports = {
     },
     format: function (sources, license, matchCounter, rate) {
         if (matchCounter >= rate && matchCounter !== 1) {
-            if (sources[license.length - 1].replace(/\s/, '') === '') {
-                sources.splice(0, license.length);
-            } else {
-                sources.splice(0, license.length - 1);
-            }
+            this.remove(sources, license);
+            sources = license.push.apply(license, sources);
         } else if (matchCounter !== 1) {
-            if (sources[license.length - 1].replace(/\s/, '') === '') {
-                sources.splice(0, license.length);
-            } else {
-                sources.splice(0, license.length - 1);
-            }
+            this.remove(sources, license);
+            sources = license.push.apply(license, sources);
         }
         return sources;
+    },
+    remove: function (sources, license) {
+        if (sources[license.length - 1].replace(/\s/, '') === '') {
+            sources.splice(0, license.length);
+        } else {
+            sources.splice(0, license.length - 1);
+        }
     }
+
 };
