@@ -35,4 +35,16 @@ describe('license updater match', function () {
         });
 
     });
+    describe('#format', function () {
+        it('should be defined', function () {
+            expect(lu.format).to.be.a('function');
+        });
+        it('should return the same string if matcher = 1', function(){
+           expect(lu.format(['test','test2'], ['license','license2'], 1, 0.8)).deep.equal(['test','test2'])
+        });
+        it('should add the license in case of matcher = 0', function(){
+            expect(lu.format(['test','test2'], ['license'], 0, 0.8)).deep.equal(['license','test','test2'])
+        });
+
+    });
 });

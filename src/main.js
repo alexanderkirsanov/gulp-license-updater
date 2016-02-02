@@ -50,10 +50,11 @@ module.exports = {
     format: function (sources, license, matchCounter, rate) {
         if (matchCounter >= rate && matchCounter !== 1) {
             this.remove(sources, license);
-            sources = license.push.apply(license, sources);
+            license.push.apply(license, sources);
+            sources = license;
         } else if (matchCounter !== 1) {
-            this.remove(sources, license);
-            sources = license.push.apply(license, sources);
+            license.push.apply(license, sources);
+            sources = license;
         }
         return sources;
     },
