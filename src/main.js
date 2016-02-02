@@ -59,11 +59,8 @@ module.exports = {
         return sources;
     },
     remove: function (sources, license) {
-        if (sources[license.length - 1].replace(/\s/, '') === '') {
-            sources.splice(0, license.length);
-        } else {
-            sources.splice(0, license.length - 1);
-        }
+        sources.splice(0, license.length);
+        return sources;
     }
 
 };

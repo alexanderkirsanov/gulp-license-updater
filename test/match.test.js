@@ -45,6 +45,19 @@ describe('license updater match', function () {
         it('should add the license in case of matcher = 0', function(){
             expect(lu.format(['test','test2'], ['license'], 0, 0.8)).deep.equal(['license','test','test2'])
         });
-
+        it('should update the license in case of matcher > match rate', function(){
+            expect(lu.format(['license', 'test','test2'], ['license2'], 0.9, 0.8)).deep.equal(['license2','test','test2'])
+        });
     });
+
+    describe('#remove', function () {
+        it('should be defined', function () {
+            expect(lu.remove).to.be.a('function');
+        });
+        it('should remove exactly the same count of lines as in license', function(){
+            expect(lu.remove(['license','license2', 'test3'], ['license','license2'])).deep.equal(['test3'])
+        });
+    });
+
+
 });
