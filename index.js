@@ -12,6 +12,10 @@ module.exports = function (config, license, rate) {
             file: file, filename: filename
         }, config));
         config = config || {};
+        var templateArr;
+        var source;
+        var matchCounter;
+        var result;
         if (config.check) {
             if (licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/)) >= rate) {
                 var path = file.path.replace(process.cwd(), '');
@@ -19,13 +23,19 @@ module.exports = function (config, license, rate) {
                 filePaths.push(path.replace(/\\/g, '/'));
             }
         } else if (config.format) {
-            var templateArr = template.split(/\r?\n/);
-            var source = file.contents.toString('utf-8').split(/\r?\n/);
-            var matchCounter = licenseUpdater.check(source, templateArr);
-            var result = licenseUpdater.format(source, templateArr, matchCounter, rate);
+            templateArr = template.split(/\r?\n/);
+            source = file.contents.toString('utf-8').split(/\r?\n/);
+            matchCounter = licenseUpdater.check(source, templateArr);
+            result = licenseUpdater.format(source, templateArr, matchCounter, rate);
             file.contents = new Buffer(result.join('\r\n'));
         } else if (config.remove) {
-
+            templateArr = template.split(/\r?\n/);
+            result = source = file.contents.toString('utf-8').split(/\r?\n/);
+            matchCounter = licenseUpdater.check(source, templateArr);
+            if (matchCounter > rate) {
+                result = licenseUpdater.remove(source, templateArr);
+            }
+            file.contents = new Buffer(result.join('\r\n'));
         }
         callback(null, file, filePaths);
     });
