@@ -8,7 +8,7 @@ module.exports = function (config, license, rate) {
     var filePaths = [];
     return through.obj(function (file, encoding, callback) {
         var filename = licenseUpdater.getFileName(file);
-        var template = gutil.template(license, extend({
+        var template = config.data === false ? license : gutil.template(license, extend({
             file: file, filename: filename
         }, config));
         config = config || {};
@@ -20,10 +20,9 @@ module.exports = function (config, license, rate) {
             var match = licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/));
             var cond = config.notExists ? match < rate : match >= rate;
             if (cond) {
-                var path = file.path.replace(process.cwd(), '');
-                path = path.replace(new RegExp('^[/\\\\]'), '');
-                filePaths.push(path.replace(/\\/g, '/'));
+               this.push(file);
             }
+            return callback();
         } else if (config.format) {
             templateArr = template.split(/\r?\n/);
             source = file.contents.toString('utf-8').split(/\r?\n/);
@@ -39,6 +38,6 @@ module.exports = function (config, license, rate) {
             }
             file.contents = new Buffer(result.join('\r\n'));
         }
-        callback(null, file, filePaths);
+        callback(null, file);
     });
 };
