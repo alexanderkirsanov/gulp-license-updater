@@ -17,7 +17,9 @@ module.exports = function (config, license, rate) {
         var matchCounter;
         var result;
         if (config.check) {
-            if (licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/)) >= rate) {
+            var match = licenseUpdater.check(file.contents.toString('utf-8').split(/\r?\n/), template.split(/\r?\n/));
+            var cond = config.notExists ? match < rate : match >= rate;
+            if (cond) {
                 var path = file.path.replace(process.cwd(), '');
                 path = path.replace(new RegExp('^[/\\\\]'), '');
                 filePaths.push(path.replace(/\\/g, '/'));
