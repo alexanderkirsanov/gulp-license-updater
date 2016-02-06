@@ -66,10 +66,10 @@ describe('gulp-license-updater', function () {
 
     it('should works well with pipe in case format operation', function (done) {
         gulp.src(fixtures('*'))
-            .pipe(lu({format: true}, '(c) license', 0.8))
+            .pipe(lu({action:'format'}, '(c) license', 0.8))
             .pipe(
                 assert.first(function (item) {
-                    return String.fromCharCode.apply(null,item.contents) === "(c) license\r\nvar a = 'Hello';\r\nconsole.log(a)";
+                    return String.fromCharCode.apply(null,item.contents) === '(c) license\r\nvar a = \'Hello\';\r\nconsole.log(a)';
                 }))
             .pipe(assert.end(done));
 

@@ -47,9 +47,11 @@ module.exports = {
         }
         return matchRates / minLines;
     },
-    format: function (sources, license, matchCounter, rate) {
+
+    format: function (sources, license, matchCounter, rate, oldLicense) {
+        oldLicense = oldLicense || license;
         if (matchCounter >= rate && matchCounter !== 1) {
-            this.remove(sources, license);
+            this.remove(sources, oldLicense);
             license.push.apply(license, sources);
             sources = license;
         } else if (matchCounter !== 1) {
@@ -58,9 +60,32 @@ module.exports = {
         }
         return sources;
     },
+
     remove: function (sources, license) {
         sources.splice(0, license.length);
         return sources;
-    }
+    },
 
+    getSeparator: function (str) {
+        for (var i = str.length; i > -1; i--) {
+            if (str.charCodeAt(i) === 10) {
+                if (str.charCodeAt(i - 1) === 13) {
+                    return '\r\n';
+                }
+                if (str.charCodeAt(i + 1) === 13) {
+                    return '\n\r';
+                }
+                return '\n';
+            }
+            if (str.charCodeAt(i) === 13) {
+                if (str.charCodeAt(i - 1) === 10) {
+                    return '\n\r';
+                }
+                if (str.charCodeAt(i + 1) === 10) {
+                    return '\r\n';
+                }
+                return '\r';
+            }
+        }
+    }
 };
