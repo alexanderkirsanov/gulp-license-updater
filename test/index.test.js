@@ -29,7 +29,7 @@ describe('gulp-license-updater', function () {
 
     it('should be processed by license updater', function (done) {
         var n = 0;
-        var luStream = lu({check: true}, 'test string', 0.8);
+        var luStream = lu({action:'check', rate: 0.8}, 'test string');
         var tstString = 'test string';
         var tmpFile = getTmpFile(tstString);
         luStream.on('data', function (file) {
@@ -52,7 +52,7 @@ describe('gulp-license-updater', function () {
     });
     it('should works well with pipe', function (done) {
         gulp.src(fixtures('*'))
-            .pipe(lu({check: true}, 'var a = \'Hello\'; \nconsole.log(a);', 0.8))
+            .pipe(lu({action:'check', rate: 0.8}, 'var a = \'Hello\'; \nconsole.log(a);'))
             .pipe(
                 assert.first(function (item) {
                     return item.relative === 'first';
@@ -66,7 +66,7 @@ describe('gulp-license-updater', function () {
 
     it('should works well with pipe in case format operation', function (done) {
         gulp.src(fixtures('*'))
-            .pipe(lu({action:'format'}, '(c) license', 0.8))
+            .pipe(lu({action:'format', rate: 0.8}, '(c) license'))
             .pipe(
                 assert.first(function (item) {
                     return String.fromCharCode.apply(null,item.contents) === '(c) license\r\nvar a = \'Hello\';\r\nconsole.log(a)';
