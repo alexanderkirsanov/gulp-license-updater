@@ -4,7 +4,6 @@ var File = require('vinyl');
 var lu = require('../index');
 var path = require('path');
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var assert = require('stream-assert');
 var is = require('funsert');
 var fixtures = function (glob) {
@@ -29,7 +28,7 @@ describe('gulp-license-updater', function () {
 
     it('should be processed by license updater', function (done) {
         var n = 0;
-        var luStream = lu({action:'check', rate: 0.8}, 'test string');
+        var luStream = lu({action: 'check', rate: 0.8}, 'test string');
         var tstString = 'test string';
         var tmpFile = getTmpFile(tstString);
         luStream.on('data', function (file) {
@@ -52,13 +51,13 @@ describe('gulp-license-updater', function () {
     });
     it('should works well with pipe', function (done) {
         gulp.src(fixtures('*'))
-            .pipe(lu({action:'check', rate: 0.8}, 'var a = \'Hello\'; \nconsole.log(a);'))
+            .pipe(lu({action: 'check', rate: 0.8}, 'var a = \'Hello\'; \nconsole.log(a);'))
             .pipe(
                 assert.first(function (item) {
-                    return item.relative === 'first';
+                    is.equal(item.relative, 'first')
                 }))
             .pipe(assert.second(function (item) {
-                return item.relative === 'second';
+                is.equal(item.relative, 'second');
             }))
             .pipe(assert.end(done));
 
@@ -66,10 +65,10 @@ describe('gulp-license-updater', function () {
 
     it('should works well with pipe in case format operation', function (done) {
         gulp.src(fixtures('*'))
-            .pipe(lu({action:'format', rate: 0.8}, '(c) license'))
+            .pipe(lu({action: 'format', rate: 0.8}, '(c) license'))
             .pipe(
                 assert.first(function (item) {
-                    return String.fromCharCode.apply(null,item.contents) === '(c) license\r\nvar a = \'Hello\';\r\nconsole.log(a)';
+                    is.equal(String.fromCharCode.apply(null, item.contents), '(c) license\r\nvar a = \'Hello\';\r\nconsole.log(a)');
                 }))
             .pipe(assert.end(done));
 
