@@ -13,7 +13,6 @@ module.exports = function (config, license, oldLicense) {
         config = config || {};
         var action = config.action || 'check';
         var rate = config.rate || 0.8;
-        delete config.action;
 
         var template = config.data === false ? license : gutil.template(license, extend({
             file: file, filename: filename
@@ -35,7 +34,7 @@ module.exports = function (config, license, oldLicense) {
             if (oldLicense) {
                 oldTemplate = oldLicense.split(/\r?\n/)
             }
-            matchCounter = licenseUpdater.check(source, templateArr);
+            matchCounter = licenseUpdater.check(source, oldTemplate || templateArr);
             result = licenseUpdater.format(source, templateArr, matchCounter, rate, oldTemplate);
             file.contents = new Buffer(result.join(separator));
         } else if (action === 'remove') {
