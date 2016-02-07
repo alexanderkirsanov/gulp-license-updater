@@ -22,7 +22,7 @@ module.exports = function (config, license, oldLicense) {
 
         if (action === 'check') {
             var match = licenseUpdater.check(fileContent.split(/\r?\n/), template.split(/\r?\n/));
-            var cond = config.notExists ? match < rate : match >= rate;
+            var cond = config.showFilesWithoutLicense ? match < rate : match >= rate;
             if (cond) {
                 this.push(file);
             }
