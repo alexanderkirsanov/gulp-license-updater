@@ -70,16 +70,7 @@ gulp.task('check-license', function () {
 ```
 Method removes the license from all files.
 ## Options
-**license**:String
-
-The license template string.
-
 **config**:JSON
-
-The JSON object used to populate the license template.
-
-
-**rate**:Float, default value is 0.8.
-
-Less then this rate, add license, otherwise update license.
-
+*action*: one of three possible values check, format or remove.
+*rate*: text match rate default value 0.8
+*showFilesWithoutLicense*: it works only for 'check' action. If true then it shows the files without true.
