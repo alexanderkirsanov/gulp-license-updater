@@ -72,5 +72,10 @@ Method removes the license from all files.
 ## Options
 **config**:JSON
 *action*: one of three possible values check, format or remove.
+
 *rate*: text match rate default value 0.8
+
 *showFilesWithoutLicense*: it works only for 'check' action. If true then it shows the files without true.
+
+**license** new license text
+**oldLicense** old license text
