@@ -78,4 +78,5 @@ Method removes the license from all files.
 *showFilesWithoutLicense*: it works only for 'check' action. If true then it shows the files without true.
 
 **license** new license text
+
 **oldLicense** old license text
