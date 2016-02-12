@@ -10,7 +10,7 @@ npm install gulp-license-updater --save-dev
 # Basic Usage
 
 There are three possible usages:
-1) Check that the files contains the license:
+1) Verify that the files contains the license:
 
 ```javascript
 var gulp = require('gulp');
