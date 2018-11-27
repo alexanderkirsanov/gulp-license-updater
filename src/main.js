@@ -49,8 +49,8 @@ module.exports = {
     },
 
     format: function (sources, license, matchCounter, rate, oldLicense) {
-        oldLicense = oldLicense || license;
         if ((matchCounter >= rate && matchCounter !== 1) || (matchCounter === 1 && oldLicense)) {
+            oldLicense = oldLicense || license;
             this.remove(sources, oldLicense);
             license.push.apply(license, sources);
             sources = license;

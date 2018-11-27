@@ -23,10 +23,10 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "event-stream": "^3.3.2",
+    "event-stream": "^4.0.1",
     "funsert": "^0.1.1",
-    "gulp": "^3.9.0",
-    "mocha": "^2.3.4",
+    "gulp": "^4.0.0",
+    "mocha": "^5.2.0",
     "stream-assert": "^2.0.3",
     "vinyl": "^1.1.1"
   }

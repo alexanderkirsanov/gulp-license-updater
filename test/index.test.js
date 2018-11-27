@@ -15,7 +15,7 @@ describe('gulp-license-updater', function () {
             path: './fixture/file.js',
             cwd: './',
             base: './fixture/',
-            contents: new Buffer(content || '')
+            contents: Buffer.from(content || '')
         });
     }
 

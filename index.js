@@ -36,7 +36,7 @@ module.exports = function (config, license, oldLicense) {
             }
             matchCounter = licenseUpdater.check(source, oldTemplate || templateArr);
             result = licenseUpdater.format(source, templateArr, matchCounter, rate, oldTemplate);
-            file.contents = new Buffer(result.join(separator));
+            file.contents = Buffer.from(result.join(separator));
         } else if (action === 'remove') {
             templateArr = template.split(/\r?\n/);
             result = source = fileContent.split(/\r?\n/);
@@ -44,7 +44,7 @@ module.exports = function (config, license, oldLicense) {
             if (matchCounter > rate) {
                 result = licenseUpdater.remove(source, templateArr);
             }
-            file.contents = new Buffer(result.join(separator));
+            file.contents = Buffer.from(result.join(separator));
         }
         callback(null, file);
     });
